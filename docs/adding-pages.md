@@ -2,7 +2,7 @@
 
 Guia passo a passo para criar uma nova página no GreenRoute.
 
-## 1. Criar o ficheiro HTML
+## 1. Create the HTML file
 
 Na raiz do projecto (não dentro de `docs/`):
 
@@ -10,7 +10,7 @@ Na raiz do projecto (não dentro de `docs/`):
 touch nome-da-pagina.html
 ```
 
-## 2. Estrutura base
+## 2. Base structure
 
 ```html
 <!DOCTYPE html>
@@ -54,7 +54,7 @@ touch nome-da-pagina.html
 </html>
 ```
 
-## 3. Adicionar o link de navegação em todas as páginas
+## 3. Add the navigation link em todas as páginas
 
 Edita o `.site-nav` em **todos** os ficheiros HTML existentes:
 
@@ -69,7 +69,7 @@ Edita o `.site-nav` em **todos** os ficheiros HTML existentes:
 
 O drawer mobile actualiza-se automaticamente — não requer mais alterações no `nav-mobile.js`.
 
-## 4. Estruturar os painéis
+## 4. Structure the panels
 
 Cada painel é uma `<section class="panel">` com um `<div class="panel-inner">` dentro. Ver `COMPONENTS.md` para os componentes disponíveis (tiles, cards, grids, etc.).
 
@@ -78,7 +78,7 @@ Boas práticas:
 - Último painel: CTA final com link de volta ao início
 - `data-label` em cada painel — aparece no counter do canto superior
 
-## 5. Testar
+## 5. Testing
 
 ```bash
 python3 -m http.server 8080

@@ -1,45 +1,50 @@
-# Guia de contribuição
+# Contributing
 
-## Antes de começar
+## Before you start
 
-Lê o `README.md` para perceber a estrutura e o `COMPONENTS.md` para perceber os componentes disponíveis. Consulta `docs/` para guias técnicos detalhados.
+Read `README.md` to understand the structure and `COMPONENTS.md` for the available components. Check `docs/` for detailed technical guides.
 
-## Regras gerais
+## General rules
 
-- Sem frameworks — o projecto é HTML + CSS + JS vanilla
-- Sem comentários no CSS
-- Sem `div` wrappers desnecessários
-- Sem valores dimensionais hardcoded dependentes do número de elementos
-- Caminhos de assets sempre relativos à raiz: `assets/css/` e `assets/js/`
+- No frameworks — the project is plain HTML + CSS + vanilla JS
+- No CSS comments
+- No unnecessary wrapper divs
+- No hardcoded dimensional values that depend on element count
+- Asset paths always relative to root: `assets/css/` and `assets/js/`
 
-## Adicionar uma nova página
+## Adding a new page
 
-Ver `docs/adding-pages.md` para o guia completo. Resumo:
+See `docs/adding-pages.md` for the full guide. Summary:
 
-1. Cria o ficheiro HTML na raiz
-2. Usa `canvas-vertical.js` como motor
-3. Inclui `nav-mobile.js` antes do script principal
-4. Adiciona o link em `.site-nav` em **todas** as páginas existentes
-5. O drawer mobile actualiza-se automaticamente
+1. Create the HTML file at the root
+2. Use `canvas-vertical.js` as the engine
+3. Include `nav-mobile.js` and `i18n.js` before the main script
+4. Add the link to `.site-nav` in **all** existing pages
+5. Add `data-en` and `data-pt` attributes to all text content
+6. The mobile drawer and language switcher update automatically
 
-## Adicionar estilos
+## Adding styles
 
-- Edita `assets/css/main.css`
-- Estilos específicos de página vão num `<style>` no `<head>` da própria página, não no `main.css`
-- O breakpoint mobile é `760px`, tablet `961px`
-- Usa sempre variáveis CSS existentes (`--c-hero`, `--c-problem`, etc.) — ver `docs/css-tokens.md`
+- Edit `assets/css/main.css`
+- Page-specific styles go in a `<style>` block in the page `<head>`, not in `main.css`
+- Mobile breakpoint: `760px`, tablet: `961px`
+- Always use existing CSS variables (`--c-hero`, `--c-problem`, etc.) — see `docs/css-tokens.md`
 
-## Adicionar JS
+## Adding JS
 
-- Lógica reutilizável entre páginas → `assets/js/`
-- Lógica específica de uma página → `<script>` inline no final do `<body>`
-- Não modificar `main.js` nem `canvas-vertical.js` sem perceber o motor de canvas
+- Logic reusable across pages → `assets/js/`
+- Page-specific logic → inline `<script>` at the end of `<body>`
+- Do not modify `main.js` or `canvas-vertical.js` without understanding the canvas engine
 
-## Testar
+## Adding translations
 
-Sem build step. Corre um servidor local (ver `README.md`) e testa em:
+Add `data-en="..."` and `data-pt="..."` to every new text element. The `i18n.js` switcher picks them up automatically. To add a third language, edit the `LANGS` array at the top of `i18n.js`.
 
-- Desktop (Chrome/Firefox/Safari) — scroll, setas, botões
-- Desktop tátil — swipe, botões
-- Mobile real ou DevTools ≤ 760px — swipe, hambúrguer
-- Tablet (761–960px) — confirmar que tiles colapsam para 2 colunas
+## Testing
+
+No build step. Run a local server (see `README.md`) and test on:
+
+- Desktop (Chrome/Firefox/Safari) — scroll, arrow keys, buttons
+- Touch desktop — swipe, buttons
+- Mobile or DevTools ≤ 760px — swipe, hamburger, language switcher
+- Tablet (761–960px) — confirm tiles collapse to 2 columns

@@ -2,7 +2,7 @@
 
 `assets/js/nav-mobile.js` gere a navegação em dispositivos móveis (≤ 760px).
 
-## Como funciona
+## How it works
 
 O script é autónomo — não requer alterações ao HTML além de incluí-lo. No arranque:
 
@@ -14,7 +14,7 @@ O script é autónomo — não requer alterações ao HTML além de incluí-lo. 
    - `.nav-drawer` — menu vertical com os links clonados
    - overlay semitransparente para fechar ao clicar fora
 
-## Incluir nas páginas
+## Including in pages
 
 ```html
 <!-- Sempre antes do script principal da página -->
@@ -22,7 +22,7 @@ O script é autónomo — não requer alterações ao HTML além de incluí-lo. 
 <script src="assets/js/main.js"></script>
 ```
 
-## Adicionar itens de nav
+## Adding nav items
 
 Edita o `.site-nav` no HTML da página. O drawer reflecte os links automaticamente:
 
@@ -38,7 +38,7 @@ Edita o `.site-nav` no HTML da página. O drawer reflecte os links automaticamen
 
 Não existe limite de itens — o drawer faz scroll vertical se necessário.
 
-## Comportamento
+## Behaviour
 
 | Acção | Resultado |
 |---|---|
@@ -49,7 +49,7 @@ Não existe limite de itens — o drawer faz scroll vertical se necessário.
 | Resize > 760px | Remove todos os elementos mobile |
 | Resize ≤ 760px | Reinjecta se não existir |
 
-## Acessibilidade
+## Accessibility
 
 - `aria-expanded` no botão hambúrguer
 - `aria-hidden` no drawer

@@ -2,7 +2,7 @@
 
 Todas as cores e variáveis de design estão definidas em `:root` no `main.css`.
 
-## Cores de painel
+## Panel colours
 
 Cada painel do canvas usa uma cor de fundo via variável CSS:
 
@@ -15,13 +15,13 @@ Cada painel do canvas usa uma cor de fundo via variável CSS:
 --c-cta         /* cor de acção — painel final */
 ```
 
-### Usar numa página
+### Using in a page
 
 ```html
 <section class="panel" style="background: var(--c-roadmap);">
 ```
 
-## Cores de tiles
+## Tile colours
 
 ```css
 --tile-green    /* tile verde */
@@ -30,7 +30,7 @@ Cada painel do canvas usa uma cor de fundo via variável CSS:
 --tile-red      /* tile vermelho */
 ```
 
-### Usar numa tile
+### Using in a tile
 
 ```html
 <div class="tile" style="--tile-color: var(--tile-green);">
@@ -60,7 +60,7 @@ Definidos apenas em media queries, não como variáveis:
 | Tablet | `761px – 960px` | `tiles-four` passa a 2 colunas |
 | Desktop | `> 960px` | Layout completo |
 
-## Adicionar uma nova cor de painel
+## Adding a new panel colour
 
 1. Declara a variável em `:root` no `main.css`:
    ```css

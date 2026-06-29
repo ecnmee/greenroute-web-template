@@ -1,50 +1,50 @@
-# Componentes
+# Components
 
-Referência rápida dos componentes reutilizáveis do GreenRoute.
+Quick reference for GreenRoute's reusable components.
 
-## Canvas 2D — `main.js`
+## 2D Canvas Engine — `main.js`
 
-Usado exclusivamente no `index.html`. Gere uma grelha 2D de painéis fullscreen.
+Used exclusively in `index.html`. Manages a 2D grid of fullscreen panels.
 
 ```
-COLS = 4   → até 4 painéis por linha
-ROWS       → calculado automaticamente a partir do total de painéis
+COLS = 4   → up to 4 panels per row
+ROWS       → calculated automatically from total panel count
 ```
 
-### Navegação
+### Navigation
 
-| Método | Comportamento |
+| Method | Behaviour |
 |---|---|
-| `go(row, col)` | Move para painel específico |
-| Setas ↑↓ | Move linearmente (painel anterior/seguinte) |
-| Setas ←→ | Move na coluna (horizontal) |
-| Scroll vertical | Move linearmente |
-| Scroll horizontal | Move coluna |
-| Swipe vertical | Move linearmente |
-| Swipe horizontal | Move coluna |
+| `go(row, col)` | Move to a specific panel |
+| ↑ / ↓ arrows | Move linearly (previous/next panel) |
+| ← / → arrows | Move within the row (horizontal) |
+| Vertical scroll | Move linearly |
+| Horizontal scroll | Move within the row |
+| Vertical swipe | Move linearly |
+| Horizontal swipe | Move within the row |
 
-### Adicionar um painel
+### Adding a panel
 
-1. Adiciona uma `<section class="panel">` dentro de `#canvas2d`
-2. Define `data-label="Nome"` para o counter
-3. O motor recalcula `ROWS` e `TOTAL` automaticamente
+1. Add a `<section class="panel">` inside `#canvas2d`
+2. Set `data-label="Name"` for the counter
+3. The engine recalculates `ROWS` and `TOTAL` automatically
 
 ---
 
-## Canvas Vertical — `canvas-vertical.js`
+## Vertical Canvas — `canvas-vertical.js`
 
-Usado em `about.html`, `news.html` e `post.html`. Navegação apenas vertical, coluna única.
+Used in `about.html`, `news.html` and `post.html`. Vertical-only navigation, single column.
 
-### Estrutura HTML mínima
+### Minimum HTML structure
 
 ```html
 <div id="canvas2d">
   <section class="panel active" data-label="Label">
     <div class="panel-inner">
-      <!-- conteúdo -->
+      <!-- content -->
     </div>
   </section>
-  <!-- mais painéis... -->
+  <!-- more panels... -->
 </div>
 
 <button class="edge-nav up hidden" id="navUp">…</button>
@@ -53,46 +53,65 @@ Usado em `about.html`, `news.html` e `post.html`. Navegação apenas vertical, c
 <div class="panel-counter" id="pcounter"></div>
 ```
 
-### Adicionar painéis
+### Adding panels
 
-Basta adicionar `<section class="panel" data-label="…">` dentro de `#canvas2d`. O motor detecta o total automaticamente via `document.querySelectorAll('.panel')`.
+Simply add `<section class="panel" data-label="…">` inside `#canvas2d`. The engine detects the total automatically via `document.querySelectorAll('.panel')`.
 
 ---
 
 ## Nav Mobile — `nav-mobile.js`
 
-Script autónomo. Incluir em todas as páginas **antes** do script principal:
+Self-contained script. Include in all pages **before** the main script:
 
 ```html
 <script src="assets/js/nav-mobile.js"></script>
-<script src="assets/js/main.js"></script>  <!-- ou canvas-vertical.js -->
+<script src="assets/js/main.js"></script>  <!-- or canvas-vertical.js -->
 ```
 
-### Como funciona
+### How it works
 
-1. Detecta `window.innerWidth ≤ 760px`
-2. Lê os `.site-nav-link` existentes no `<div class="site-nav">`
-3. Constrói dinamicamente: topbar de fundo, botão hambúrguer, drawer com os mesmos links
+1. Detects `window.innerWidth ≤ 760px`
+2. Reads existing `.site-nav-link` elements from `<nav class="site-nav">`
+3. Dynamically injects: background topbar, hamburger button, drawer with cloned links
 
-### Adicionar itens de nav
+### Adding nav items
 
-Basta adicionar um `<a class="site-nav-link" href="…">` dentro de `.site-nav` no HTML. O drawer reflecte os links automaticamente sem tocar no `nav-mobile.js`.
+Just add an `<a class="site-nav-link" href="…">` inside `.site-nav` in the HTML. The drawer updates automatically — no changes needed in `nav-mobile.js`. Works with any number of items.
+
+---
+
+## Language Switcher — `i18n.js`
+
+Bilingual EN/PT support. Include before other scripts:
+
+```html
+<script src="assets/js/i18n.js"></script>
+```
+
+Add `data-en` and `data-pt` attributes to any translatable element:
+
+```html
+<h1 data-en="Hello world" data-pt="Olá mundo">Hello world</h1>
+<input data-en="Your name" data-pt="O seu nome" placeholder="Your name" />
+```
+
+The switcher is injected automatically next to `.top-social`. Language preference persists via `localStorage`.
 
 ---
 
 ## Chat
 
-Incluído no `canvas-vertical.js` e `main.js`. Requer no HTML:
+Included in `canvas-vertical.js` and `main.js`. Requires in HTML:
 
 ```html
 <button class="chat-btn" id="chatBtn">…</button>
 <div class="chat-panel" id="chatPanel" aria-hidden="true">
   <div class="chat-panel-header">
-    <span>Título</span>
+    <span>Title</span>
     <button class="chat-panel-close" id="chatClose">×</button>
   </div>
   <div class="chat-messages" id="chatMessages">
-    <div class="chat-msg bot">Mensagem inicial</div>
+    <div class="chat-msg bot">Initial message</div>
   </div>
   <div class="chat-input-row">
     <input type="text" id="chatInput" />
@@ -103,19 +122,19 @@ Incluído no `canvas-vertical.js` e `main.js`. Requer no HTML:
 
 ---
 
-## Classes CSS utilitárias
+## CSS utility classes
 
-| Classe | Uso |
+| Class | Usage |
 |---|---|
-| `.panel-inner` | Container centrado dentro de cada painel |
-| `.panel-title` | Título principal do painel |
-| `.panel-eyebrow` | Label uppercase acima do título |
-| `.panel-sub` | Subtítulo/descrição |
-| `.hl` | Destaque de cor em texto |
-| `.tile-grid` | Grid de tiles (default 4 colunas) |
-| `.tiles-two` `.tiles-three` `.tiles-four` | Variantes de colunas |
-| `.tile` | Tile individual com `--tile-color` |
-| `.news-card` | Card de artigo de notícia |
-| `.about-card` | Card da página Sobre |
-| `.btn` | Botão base |
-| `.btn-primary` `.btn-outline` `.btn-light` | Variantes de botão |
+| `.panel-inner` | Centred container inside each panel |
+| `.panel-title` | Main panel heading |
+| `.panel-eyebrow` | Uppercase label above the title |
+| `.panel-sub` | Subtitle / description |
+| `.hl` | Highlighted colour in text |
+| `.tile-grid` | Tile grid (default 4 columns) |
+| `.tiles-two` `.tiles-three` `.tiles-four` | Column variants |
+| `.tile` | Individual tile with `--tile-color` |
+| `.news-card` | News article card |
+| `.about-card` | About page card |
+| `.btn` | Base button |
+| `.btn-primary` `.btn-outline` `.btn-light` | Button variants |

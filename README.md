@@ -1,25 +1,29 @@
 # GreenRoute
 
-Site institucional da GreenRoute — infraestrutura de internet verde.
+Fullscreen canvas-based website template for sustainable internet infrastructure brands.
 
-## Estrutura de ficheiros
+## File structure
 
 ```
 /
-├── index.html              Página principal (canvas 2D grid)
-├── about.html              Sobre a GreenRoute (canvas vertical)
-├── news.html               Notícias (canvas vertical)
-├── post.html               Artigo individual (canvas vertical)
+├── index.html              Main page (2D canvas grid)
+├── about.html              About page (vertical canvas)
+├── news.html               News listing (vertical canvas)
+├── post.html               Single article (vertical canvas)
+├── robots.txt
+├── sitemap.xml
+├── .htaccess
 ├── README.md
 ├── COMPONENTS.md
 ├── CONTRIBUTING.md
 ├── assets/
 │   ├── css/
-│   │   └── main.css        Estilos globais + responsivo
+│   │   └── main.css        Global styles + responsive
 │   └── js/
-│       ├── main.js         Motor canvas 2D (index)
-│       ├── canvas-vertical.js  Motor canvas vertical (subpages)
-│       └── nav-mobile.js   Hambúrguer + drawer mobile
+│       ├── main.js         2D canvas engine (index)
+│       ├── canvas-vertical.js  Vertical canvas engine (subpages)
+│       ├── nav-mobile.js   Hamburger + drawer for mobile
+│       └── i18n.js         EN/PT language switcher
 └── docs/
     ├── canvas-engine.md
     ├── nav-mobile.md
@@ -27,9 +31,9 @@ Site institucional da GreenRoute — infraestrutura de internet verde.
     └── adding-pages.md
 ```
 
-## Correr localmente
+## Run locally
 
-Qualquer servidor estático serve. Exemplos:
+Any static server works. Examples:
 
 ```bash
 # Python
@@ -39,19 +43,29 @@ python3 -m http.server 8080
 npx serve .
 
 # VS Code
-# Instala a extensão "Live Server" e clica em "Go Live"
+# Install the "Live Server" extension and click "Go Live"
 ```
 
-Abre `http://localhost:8080` no browser.
+Open `http://localhost:8080` in your browser.
 
-## Navegação
+## Navigation
 
-| Dispositivo | Acção |
+| Device | Action |
 |---|---|
-| Desktop | Scroll, setas ↑↓←→, botões no ecrã |
-| Tátil | Swipe vertical/horizontal |
-| Mobile | Swipe vertical, hambúrguer para nav |
+| Desktop | Scroll, arrow keys ↑↓←→, on-screen buttons |
+| Touch desktop | Swipe vertical / horizontal |
+| Mobile | Swipe vertical, hamburger menu |
 
-## Dependências
+## Language
 
-Nenhuma. HTML + CSS + JS vanilla.
+The template ships with bilingual support out of the box. Default language is **English**. The switcher persists the user's choice via `localStorage`.
+
+To add a new language, see `assets/js/i18n.js` and add `data-{lang}` attributes to translatable elements.
+
+## Dependencies
+
+None. Pure HTML + CSS + vanilla JavaScript.
+
+## License
+
+Commercial use permitted. Customise freely for client projects or resale.
