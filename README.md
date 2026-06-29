@@ -2,6 +2,21 @@
 
 Fullscreen canvas-based website template for sustainable internet infrastructure brands.
 
+![Hero panel](assets/img/preview/01-hero.png)
+
+---
+
+## Preview
+
+| | |
+|---|---|
+| ![Hero — home panel](assets/img/preview/01-hero.png) | ![Problem panel](assets/img/preview/02-problem.png) |
+| ![About panel](assets/img/preview/03-about.png) | ![FAQ panel](assets/img/preview/04-faq.png) |
+
+![News page](assets/img/preview/05-news.png)
+
+---
+
 ## File structure
 
 ```
@@ -19,6 +34,8 @@ Fullscreen canvas-based website template for sustainable internet infrastructure
 ├── assets/
 │   ├── css/
 │   │   └── main.css        Global styles + responsive
+│   ├── img/
+│   │   └── preview/        README screenshots
 │   └── js/
 │       ├── main.js         2D canvas engine (index)
 │       ├── canvas-vertical.js  Vertical canvas engine (subpages)
