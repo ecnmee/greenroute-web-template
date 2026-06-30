@@ -4,7 +4,11 @@
 
 Fullscreen canvas-based website template for sustainable internet infrastructure brands.
 
+<<<<<<< HEAD
 > The GreenRoute logo was designed by [@Eduardo Costa Nkuansambu](https://github.com/ecnmee).
+=======
+> The GreenRoute logo was designed by [Eduardo Costa Nkuansambu](https://github.com/ecnmee).
+>>>>>>> c68f961 (feat: add real social links, favicons, web manifest and GitHub Pages fix)
 
 ![Hero panel](assets/img/preview/01-hero.png)
 
@@ -96,7 +100,11 @@ Two versions are included in `assets/img/`:
 | `logo.png` | Transparent background — used across all site pages (dark panels) |
 | `logo_green.png` | Light background — used in this README and any light-theme context |
 
+<<<<<<< HEAD
 Logo design © [@Eduardo Costa Nkuansambu](https://github.com/ecnmee).
+=======
+Logo design © [Eduardo Costa Nkuansambu](https://github.com/ecnmee).
+>>>>>>> c68f961 (feat: add real social links, favicons, web manifest and GitHub Pages fix)
 
 ## License
 
