@@ -155,24 +155,20 @@ function goMobile(delta) {
 }
 
 // ── Botões de seta ───────────────────────────────────────────────────────────
-navUp.onclick    = () => { if (isMobile()) goMobile(-1); else { const n = linearIdx()-1; if (n>=0) go(Math.floor(n/COLS), n%COLS); } };
-navDown.onclick  = () => { if (isMobile()) goMobile(+1); else { const n = linearIdx()+1; if (n<TOTAL) go(Math.floor(n/COLS), n%COLS); } };
+navUp.onclick    = () => { if (isMobile()) goMobile(-1); else go(row - 1, col); };
+navDown.onclick  = () => { if (isMobile()) goMobile(+1); else go(row + 1, Math.min(col, maxColForRow(row + 1))); };
 navLeft.onclick  = () => go(row, col - 1);
 navRight.onclick = () => go(row, col + 1);
 
 // ── Teclado (desktop) ────────────────────────────────────────────────────────
-// ↑ / ↓ navegam linearmente (painel anterior / seguinte),
-// ← / → navegam na coluna (dentro da mesma linha do grid).
+// ↑ / ↓ movem uma linha (±COLS painéis) — cima/baixo no grid visual
+// ← / → movem uma coluna (±1 painel)   — esquerda/direita no grid visual
 document.addEventListener('keydown', e => {
   if (isMobile()) return;
   if (e.key === 'ArrowRight') { go(row, col + 1); return; }
   if (e.key === 'ArrowLeft')  { go(row, col - 1); return; }
-  if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-    const delta = e.key === 'ArrowDown' ? 1 : -1;
-    const next  = linearIdx() + delta;
-    if (next < 0 || next >= TOTAL) return;
-    go(Math.floor(next / COLS), next % COLS);
-  }
+  if (e.key === 'ArrowDown')  { go(row + 1, Math.min(col, maxColForRow(row + 1))); return; }
+  if (e.key === 'ArrowUp')    { go(row - 1, col); return; }
 });
 
 // ── Touch / Swipe ────────────────────────────────────────────────────────────
@@ -200,28 +196,26 @@ document.addEventListener('touchend', e => {
     // Mobile: só vertical
     if (Math.abs(dy) > Math.abs(dx)) goMobile(dy > 0 ? 1 : -1);
   } else {
-    // Desktop tátil: horizontal move coluna, vertical move linearmente
+    // Desktop tátil: horizontal move coluna (±1), vertical move linha (±COLS)
     if (Math.abs(dx) > Math.abs(dy)) {
       go(row, dx > 0 ? col + 1 : col - 1);
     } else {
-      const delta = dy > 0 ? 1 : -1;
-      const next  = linearIdx() + delta;
-      if (next >= 0 && next < TOTAL) go(Math.floor(next / COLS), next % COLS);
+      const nr = dy > 0 ? row + 1 : row - 1;
+      go(nr, Math.min(col, maxColForRow(nr)));
     }
   }
 });
 
 // ── Wheel (desktop) ──────────────────────────────────────────────────────────
-// Scroll horizontal → move coluna; scroll vertical → move linearmente.
+// Scroll horizontal → move coluna (±1); scroll vertical → move linha (±COLS).
 document.addEventListener('wheel', e => {
   if (isMobile() || wLock) return;
   wLock = true;
   if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
     go(row, e.deltaX > 0 ? col + 1 : col - 1);
   } else {
-    const delta = e.deltaY > 0 ? 1 : -1;
-    const next  = linearIdx() + delta;
-    if (next >= 0 && next < TOTAL) go(Math.floor(next / COLS), next % COLS);
+    const nr = e.deltaY > 0 ? row + 1 : row - 1;
+    go(nr, Math.min(col, maxColForRow(nr)));
   }
   setTimeout(() => wLock = false, 1000);
 });

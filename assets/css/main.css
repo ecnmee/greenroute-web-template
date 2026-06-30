@@ -714,3 +714,26 @@ img { max-width:100%; display:block; }
     font-size: 9px;
   }
 }
+
+/* ── Tall-content panel (e.g. Contact form) ─────────────────────────────────
+   Some panels (forms, long lists) exceed the vertical space available when
+   centred. .panel-tall switches the panel to top-aligned scrolling content,
+   with enough top padding to clear the fixed nav/logo bar. ───────────────── */
+.panel-tall {
+  align-items: flex-start;
+}
+.panel-tall .panel-inner {
+  justify-content: flex-start;
+  padding-top: calc(64px + 1.5rem);
+  max-height: 100vh;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.panel-tall .panel-inner::-webkit-scrollbar { display: none; }
+
+@media (max-width: 760px) {
+  .panel-tall .panel-inner {
+    padding-top: 64px;
+  }
+}
