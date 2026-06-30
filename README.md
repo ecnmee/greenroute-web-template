@@ -1,6 +1,10 @@
 # GreenRoute
 
+![GreenRoute logo](assets/img/logo_green.png)
+
 Fullscreen canvas-based website template for sustainable internet infrastructure brands.
+
+> The GreenRoute logo was designed by [@SEU_USERNAME](https://github.com/SEU_USERNAME).
 
 ![Hero panel](assets/img/preview/01-hero.png)
 
@@ -11,7 +15,7 @@ Fullscreen canvas-based website template for sustainable internet infrastructure
 | | |
 |---|---|
 | ![Hero — home panel](assets/img/preview/01-hero.png) | ![Problem panel](assets/img/preview/02-problem.png) |
-| ![About panel](assets/img/preview/03-about.png) | ![FAQ panel](assets/img/preview/04-faq.png) |
+| ![Technology panel](assets/img/preview/03-tech.png) | ![Contact panel](assets/img/preview/04-contact.png) |
 
 ![News page](assets/img/preview/05-news.png)
 
@@ -82,6 +86,17 @@ To add a new language, see `assets/js/i18n.js` and add `data-{lang}` attributes 
 ## Dependencies
 
 None. Pure HTML + CSS + vanilla JavaScript.
+
+## Logo
+
+Two versions are included in `assets/img/`:
+
+| File | Use case |
+|---|---|
+| `logo.png` | Transparent background — used across all site pages (dark panels) |
+| `logo_green.png` | Light background — used in this README and any light-theme context |
+
+Logo design © [@SEU_USERNAME](https://github.com/SEU_USERNAME).
 
 ## License
 

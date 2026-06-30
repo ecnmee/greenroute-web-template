@@ -28,11 +28,10 @@ img { max-width:100%; display:block; }
 
 /* ── Logo ──────────────────────────────────────────────────────────────────── */
 .logo {
-  position:fixed; top:26px; left:32px; font-size:16px; font-weight:700;
-  z-index:100; letter-spacing:-.2px; color:#fff; display:flex; align-items:center; gap:8px;
+  position:fixed; top:18px; left:32px;
+  z-index:100; display:flex; align-items:center;
 }
-.logo i { width:10px; height:10px; background:#5dcaa5; display:inline-block; border-radius:50%; }
-.logo span:last-child { color:#5dcaa5; }
+.logo img { height:34px; width:auto; display:block; }
 
 /* ── Site nav ──────────────────────────────────────────────────────────────── */
 .site-nav {
@@ -503,6 +502,7 @@ img { max-width:100%; display:block; }
     -webkit-backdrop-filter: blur(12px);
     z-index: 300;
   }
+  .logo img { height: 24px; }
 
   /* Nav desktop fica escondida — o drawer substitui-a */
   .site-nav { display: none; }
