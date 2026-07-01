@@ -1,6 +1,7 @@
 {
   "name": "GreenRoute — Sustainable Internet Infrastructure",
   "short_name": "GreenRoute",
+  "description": "Fullscreen canvas-based website template for sustainable internet infrastructure brands.",
   "icons": [
     {
       "src": "assets/img/android-chrome-192x192.png",
@@ -10,11 +11,26 @@
     {
       "src": "assets/img/android-chrome-512x512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ],
   "theme_color": "#0b6e4f",
   "background_color": "#0a0a0a",
   "display": "standalone",
-  "start_url": "."
+  "orientation": "portrait-primary",
+  "start_url": ".",
+  "scope": ".",
+  "shortcuts": [
+    {
+      "name": "News",
+      "url": "./news.html",
+      "icons": [{ "src": "assets/img/android-chrome-192x192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "About",
+      "url": "./about.html",
+      "icons": [{ "src": "assets/img/android-chrome-192x192.png", "sizes": "192x192" }]
+    }
+  ]
 }

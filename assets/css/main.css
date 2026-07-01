@@ -497,9 +497,7 @@ img { max-width:100%; display:block; }
     height: 48px;
     margin: 0; padding: 0 14px;
     display: flex; align-items: center; gap: 8px;
-    background: rgba(0,0,0,.78);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: transparent;
     z-index: 300;
   }
   .logo img { height: 24px; }
@@ -514,9 +512,7 @@ img { max-width:100%; display:block; }
     width: 48px; height: 48px;
     display: flex; flex-direction: column;
     align-items: center; justify-content: center; gap: 5px;
-    background: rgba(0,0,0,.78);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: transparent;
     border: none; cursor: pointer; z-index: 300;
     padding: 0;
   }
@@ -532,33 +528,28 @@ img { max-width:100%; display:block; }
   .nav-burger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
   .nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-  /* ── Barra de topo unificada (fundo contínuo entre logo e burger) ────────── */
+  /* ── Barra de topo — totalmente transparente ────────────────────────────── */
   .nav-topbar {
     position: fixed;
     top: 0; left: 0; right: 0;
     height: 48px;
-    background: rgba(0,0,0,.78);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255,255,255,.1);
+    background: transparent;
+    border-bottom: none;
     z-index: 299;
   }
 
-  /* ── Drawer (injectado por nav-mobile.js) ───────────────────────────────── */
+  /* ── Drawer — preto sólido, fullscreen abaixo da topbar ─────────────────── */
   .nav-drawer {
     position: fixed;
-    top: 48px; left: 0; right: 0;
-    background: rgba(10,10,10,.97);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(255,255,255,.1);
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: #000;
     display: flex; flex-direction: column;
-    z-index: 298;
-    /* estado fechado: sobe para fora do ecrã + invisível */
+    justify-content: center;
+    z-index: 297;
     transform: translateY(-100%);
     opacity: 0;
     pointer-events: none;
-    transition: transform .35s cubic-bezier(.22,1,.36,1), opacity .25s ease;
+    transition: transform .4s cubic-bezier(.22,1,.36,1), opacity .3s ease;
   }
   .nav-drawer.open {
     transform: translateY(0);
@@ -567,19 +558,20 @@ img { max-width:100%; display:block; }
   }
   .nav-drawer .site-nav-link {
     display: block;
-    padding: 16px 20px;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
+    padding: 20px 32px;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 2px;
     text-transform: uppercase;
     border: none;
-    border-bottom: 1px solid rgba(255,255,255,.07);
+    border-bottom: 1px solid rgba(255,255,255,.08);
     background: transparent;
     color: #fff;
-    transition: background .15s;
+    transition: background .15s, padding-left .2s;
   }
+  .nav-drawer .site-nav-link:first-child { margin-top: 48px; }
   .nav-drawer .site-nav-link:last-child { border-bottom: none; }
-  .nav-drawer .site-nav-link:hover { background: rgba(255,255,255,.06); }
+  .nav-drawer .site-nav-link:hover { background: rgba(255,255,255,.05); padding-left: 40px; }
 
   /* ══════════════════════════════════════════════════════════════════════════
      CANVAS E PAINÉIS
@@ -705,9 +697,9 @@ img { max-width:100%; display:block; }
     align-items: center;
     gap: 2px;
     z-index: 300;
-    background: rgba(0,0,0,.78);
+    background: transparent;
     padding: 0 8px;
-    border-bottom: 1px solid rgba(255,255,255,.1);
+    border-bottom: none;
   }
   .lang-btn {
     padding: 4px 6px;
