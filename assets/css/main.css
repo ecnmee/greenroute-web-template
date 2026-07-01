@@ -484,7 +484,32 @@ img { max-width:100%; display:block; }
 
   /* ── Ocultar controlos de canvas e elementos desktop ────────────────────── */
   .minimap, .panel-counter, .edge-nav,
-  .chat-btn, .chat-panel, .top-social { display:none !important; }
+  .chat-btn, .chat-panel { display:none !important; }
+
+  /* top-social visível em mobile — ícones centrados na barra de topo */
+  .top-social {
+    display: flex !important;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    height: 52px;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    background: rgba(0,0,0,.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255,255,255,.1);
+    z-index: 200;
+    flex-direction: row;
+  }
+  .top-social-link {
+    opacity: 1;
+    padding: 8px 12px;
+  }
+  .top-social-link svg { width: 18px; height: 18px; }
+
+  /* Contact form social links — centred */
+  .social-links { justify-content: center; gap: 10px; flex-wrap: wrap; }
 
   /* ══════════════════════════════════════════════════════════════════════════
      BARRA DE TOPO — logo à esquerda, hambúrguer à direita
@@ -581,16 +606,13 @@ img { max-width:100%; display:block; }
 
   .panel-inner {
     max-width: none;
-    /* 48px da barra de topo + 16px folga; 24px em baixo */
-    padding: 64px 18px 24px;
+    padding: 64px 18px 80px;
     gap: .85rem;
     align-items: flex-start;
     text-align: left;
-    /* permite scroll interno se o conteúdo for maior que o ecrã */
     overflow-y: auto;
     overflow-x: hidden;
     max-height: 100vh;
-    /* esconde scrollbar nativa — o painel não deve parecer scrollável */
     scrollbar-width: none;
     -ms-overflow-style: none;
   }
@@ -634,10 +656,7 @@ img { max-width:100%; display:block; }
   .field input,
   .field textarea { font-size: 16px; } /* evita zoom iOS */
 
-  /* ── Redes sociais ───────────────────────────────────────────────────────── */
-  .social-links { justify-content: flex-start; gap: 8px; }
-
-  /* ── Botões ──────────────────────────────────────────────────────────────── */
+  /* buttons */
   .btn { padding: 12px 24px; font-size: 12px; }
 
   /* ── Modal ───────────────────────────────────────────────────────────────── */

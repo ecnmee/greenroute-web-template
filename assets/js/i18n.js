@@ -1,15 +1,36 @@
 /* GreenRoute — i18n.js
    Bilingual EN / PT switcher.
    Add data-en="..." data-pt="..." to any element to make it translatable.
-   The language toggle button is injected automatically next to .top-social.
-   Default language: EN. Persists via localStorage. */
+   Fires CustomEvent 'gr:langChange' so other modules (nav-mobile, form) can sync. */
 
 (function () {
-  const LANGS    = ['en', 'pt'];
-  const STORAGE  = 'gr_lang';
-  let   current  = localStorage.getItem(STORAGE) || 'en';
+  const LANGS   = ['en', 'pt'];
+  const STORAGE = 'gr_lang';
+  let   current = localStorage.getItem(STORAGE) || 'en';
 
-  /* ── Translate all data-{lang} elements ──────────────────────────────────── */
+  /* ── Validation messages per language ──────────────────────────────────────── */
+  const VALIDATION = {
+    en: {
+      required:  'This field is required.',
+      minName:   'Please enter at least 2 characters.',
+      minSubject:'Please enter at least 3 characters.',
+      minMsg:    'Please enter at least 20 characters.',
+      email:     'Please enter a valid email address.',
+      success:   'Message sent successfully! We\'ll be in touch soon.',
+      error:     'Something went wrong. Please try again.'
+    },
+    pt: {
+      required:  'Este campo é obrigatório.',
+      minName:   'Por favor insira pelo menos 2 caracteres.',
+      minSubject:'Por favor insira pelo menos 3 caracteres.',
+      minMsg:    'Por favor insira pelo menos 20 caracteres.',
+      email:     'Por favor insira um endereço de email válido.',
+      success:   'Mensagem enviada com sucesso! Entraremos em contacto.',
+      error:     'Ocorreu um erro. Por favor tente novamente.'
+    }
+  };
+
+  /* ── Translate all data-{lang} elements ────────────────────────────────────── */
   function applyLang(lang) {
     current = lang;
     localStorage.setItem(STORAGE, lang);
@@ -18,10 +39,9 @@
     document.querySelectorAll('[data-en]').forEach(el => {
       const val = el.getAttribute('data-' + lang);
       if (val === null) return;
-      /* inputs/textareas: placeholder */
       if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
         el.placeholder = val;
-      } else if (el.hasAttribute('aria-label')) {
+      } else if (el.hasAttribute('aria-label') && !el.children.length) {
         el.setAttribute('aria-label', val);
       } else {
         el.innerHTML = val;
@@ -33,9 +53,15 @@
       btn.classList.toggle('active', btn.dataset.lang === lang);
       btn.setAttribute('aria-pressed', btn.dataset.lang === lang);
     });
+
+    /* Notify other modules */
+    document.dispatchEvent(new CustomEvent('gr:langChange', { detail: { lang } }));
   }
 
-  /* ── Inject toggle UI ────────────────────────────────────────────────────── */
+  /* ── Expose validation messages globally ───────────────────────────────────── */
+  window.grValidation = () => VALIDATION[current] || VALIDATION.en;
+
+  /* ── Inject toggle UI ──────────────────────────────────────────────────────── */
   function injectToggle() {
     if (document.querySelector('.lang-switcher')) return;
 
@@ -46,7 +72,7 @@
 
     LANGS.forEach(lang => {
       const btn = document.createElement('button');
-      btn.className   = 'lang-btn';
+      btn.className    = 'lang-btn';
       btn.dataset.lang = lang;
       btn.textContent  = lang.toUpperCase();
       btn.setAttribute('aria-pressed', lang === current);
@@ -55,14 +81,15 @@
       switcher.appendChild(btn);
     });
 
-    /* Insert before .top-social or at end of body */
-    const anchor = document.querySelector('.top-social') || document.body;
-    anchor.parentNode
-      ? anchor.parentNode.insertBefore(switcher, anchor)
-      : document.body.appendChild(switcher);
+    const anchor = document.querySelector('.top-social');
+    if (anchor && anchor.parentNode) {
+      anchor.parentNode.insertBefore(switcher, anchor);
+    } else {
+      document.body.appendChild(switcher);
+    }
   }
 
-  /* ── Boot ────────────────────────────────────────────────────────────────── */
+  /* ── Boot ──────────────────────────────────────────────────────────────────── */
   function boot() {
     injectToggle();
     applyLang(current);
