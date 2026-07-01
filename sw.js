@@ -1,8 +1,8 @@
-/* GreenRoute — Service Worker
-   Caches all static assets for offline use.
-   Strategy: Cache First for assets, Network First for HTML. */
+/* GreenRoute — Service Worker v2
+   Strategy: Network First com fallback para cache quando offline.
+   Incrementa CACHE_VERSION a cada deploy para invalidar cache antigo. */
 
-const CACHE = 'greenroute-v1';
+const CACHE_VERSION = 'greenroute-v2';
 
 const STATIC = [
   './',
@@ -15,8 +15,9 @@ const STATIC = [
   './assets/js/canvas-vertical.js',
   './assets/js/nav-mobile.js',
   './assets/js/i18n.js',
+  './assets/js/form.js',
+  './assets/js/pwa.js',
   './assets/img/logo.png',
-  './assets/img/logo_green.png',
   './assets/img/favicon-32x32.png',
   './assets/img/apple-touch-icon.png',
   './assets/img/android-chrome-192x192.png',
@@ -24,49 +25,55 @@ const STATIC = [
   './site.webmanifest'
 ];
 
+/* ── Install: pre-cache static assets ───────────────────────────────────────── */
 self.addEventListener('install', e => {
   e.waitUntil(
-    caches.open(CACHE).then(c => c.addAll(STATIC))
+    caches.open(CACHE_VERSION).then(c => c.addAll(STATIC))
   );
   self.skipWaiting();
 });
 
+/* ── Activate: delete all old caches ────────────────────────────────────────── */
 self.addEventListener('activate', e => {
   e.waitUntil(
     caches.keys().then(keys =>
-      Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))
+      Promise.all(
+        keys.filter(k => k !== CACHE_VERSION).map(k => {
+          console.log('[SW] Deleting old cache:', k);
+          return caches.delete(k);
+        })
+      )
     )
   );
   self.clients.claim();
 });
 
+/* ── Fetch: Network First — always try network, cache only as offline fallback ── */
 self.addEventListener('fetch', e => {
+  /* Only handle same-origin GET requests */
+  if (e.request.method !== 'GET') return;
   const url = new URL(e.request.url);
+  if (url.origin !== location.origin) return;
 
-  /* Network First for HTML — always try to get fresh page */
-  if (e.request.destination === 'document') {
-    e.respondWith(
-      fetch(e.request)
-        .then(res => {
-          const clone = res.clone();
-          caches.open(CACHE).then(c => c.put(e.request, clone));
-          return res;
-        })
-        .catch(() => caches.match(e.request))
-    );
-    return;
-  }
-
-  /* Cache First for everything else */
   e.respondWith(
-    caches.match(e.request).then(cached => {
-      if (cached) return cached;
-      return fetch(e.request).then(res => {
-        if (!res || res.status !== 200 || res.type === 'opaque') return res;
-        const clone = res.clone();
-        caches.open(CACHE).then(c => c.put(e.request, clone));
+    fetch(e.request)
+      .then(res => {
+        /* Update cache with fresh response */
+        if (res && res.status === 200) {
+          const clone = res.clone();
+          caches.open(CACHE_VERSION).then(c => c.put(e.request, clone));
+        }
         return res;
-      });
-    })
+      })
+      .catch(() => {
+        /* Offline fallback */
+        return caches.match(e.request).then(cached => {
+          if (cached) return cached;
+          /* If HTML not cached, return index */
+          if (e.request.destination === 'document') {
+            return caches.match('./index.html');
+          }
+        });
+      })
   );
 });
