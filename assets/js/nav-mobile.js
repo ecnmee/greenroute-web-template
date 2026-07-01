@@ -41,6 +41,18 @@
       drawer.appendChild(a);
     });
 
+    /* ── Social icons inside drawer ────────────────────────────────────────── */
+    const socialSrc = document.querySelector('.top-social');
+    if (socialSrc) {
+      const socialBar = document.createElement('div');
+      socialBar.className = 'drawer-social';
+      socialSrc.querySelectorAll('.top-social-link').forEach(link => {
+        const a = link.cloneNode(true);
+        socialBar.appendChild(a);
+      });
+      drawer.appendChild(socialBar);
+    }
+
     document.body.appendChild(drawer);
 
     /* ── Hamburger button ───────────────────────────────────────────────────── */
